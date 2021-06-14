@@ -1,1 +1,1 @@
-# NKUST-Software_enginee
+# NKUST-Software_engineering
