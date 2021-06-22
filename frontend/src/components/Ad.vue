@@ -1,15 +1,15 @@
 <template>
-    <v-card elevation="24" width="1000" class="mx-auto">
-        <v-carousel v-model="model" cycle interval="5000">
-            <v-carousel-item v-for="i in 9" :key="i">
-                <v-sheet :color="color" height="100%" tile>
-                    <v-row class="fill-height" align="center" justify="center">
-                        <img :src="goods(i)" height="90%" width="90%" />
-                    </v-row>
-                </v-sheet>
-            </v-carousel-item>
-        </v-carousel>    
-    </v-card>
+  <v-card elevation="24" width="1200" class="mx-auto">
+    <v-carousel v-model="model" cycle interval="5000">
+      <v-carousel-item v-for="i in 9" :key="i">
+        <v-sheet :color="color" height="100%" tile>
+          <v-row class="fill-height" align="center" justify="center">
+            <img :src="goods(i)" height="100%" width="90%" />
+          </v-row>
+        </v-sheet>
+      </v-carousel-item>
+    </v-carousel>    
+  </v-card>
 </template>
 
 <script>
