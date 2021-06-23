@@ -51,14 +51,15 @@
 <script>
   export default ({
     name : 'Good',
-    props:{
-      item_data: {type: Object},
+     props:{
+       item_data: {type: Object},
     },
     data () {
       return {
         size: ["small", 'middle', 'large'],
         buy_stats: false,
-        // item_data: this.$route.params.value
+        tab: null,
+        // item_data: {},
         }
       },
     computed:{
@@ -66,6 +67,10 @@
             return !this.$store.state.buy_status
         }
     }, 
+    // mounted() {
+    //   this.item_data=this.$route.query.value
+    //   console.log(this.$route.query)
+    // },
     methods: {
       amount: function(i) {
           var am = []

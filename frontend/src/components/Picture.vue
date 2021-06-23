@@ -1,9 +1,9 @@
 <template>
 <div id='search'>
-  <div class="text-center" v-if="buy_status">
+  <div class="text-center" v-if="!buy_status">
     <v-container fluid v-model="page">
       <v-row dense >
-        <v-col v-for="card in cards" :key="card.title" :cols="card.flex"> 
+        <v-col v-for="card in cards" :key="card.id" :cols="card.flex"> 
           <v-card>
               <v-card link>
                 <v-img :src="card.src" @click="buy(card)" class="white--text align-end" gradient="to bottom, rgba(0,0,0,0.1), rgba(0,0,0,0.1)" height="350px">
@@ -31,23 +31,23 @@
     </v-container>
       <v-pagination v-model="page" :length="4" circle></v-pagination>
   </div>
-  <router-view name="goods" :item_data="temp" v-else/>
+  <Goods :item_data="temp"  v-else/>
 </div>
 </template>
 
 <script>
-// import Goods from './Goods'
+import Goods from './Goods'
 
 export default ({
     name: "Select",
     props: {
       item:{type: String},
       },
-    // components:{
-    //     Goods v-bind:item_data="temp" />
+    components:{
+        // Goods v-bind:item_data="temp" />
 
-    //   Goods,
-    // },
+      Goods,
+    },
     data () {
       return {
         page: 1,
@@ -56,15 +56,15 @@ export default ({
         tab: null,
         temp:{},
         cards: [
-                { class:this.item, title: 'Pre-fab homes', creator: 'leerg', price: 125 , src: require(`@/assets/goods1.jpg`) , flex: 4, like: false},
-                { class:this.item, title: 'Favorite road trips', creator: 'klhff', price: 125 , src: require(`@/assets/goods2.jpg`), flex: 4, like: false },
-                { class:this.item, title: 'Best airlines', creator: 'degggzs', price: 125 , src: require(`@/assets/goods3.jpg`), flex: 4, like: false },
-                { class:this.item, title: 'Pre-fab homes', creator: 'bnggsa', price: 125 , src: require(`@/assets/goods4.jpg`), flex: 4, like: false },
-                { class:this.item, title: 'Favorite road trips', creator: 'garr', price: 125 , src: require(`@/assets/goods5.jpg`), flex: 4, like: false },
-                { class:this.item, title: 'Best airlines', creator: 'fbadga', price: 125 , src: require(`@/assets/goods6.jpg`), flex: 4, like: false },
-                { class:this.item, title: 'Pre-fab homes', creator: 'bnggsa', price: 125 , src: require(`@/assets/goods4.jpg`), flex: 4, like: false },
-                { class:this.item, title: 'Favorite road trips', creator: 'garr', price: 125 , src: require(`@/assets/goods5.jpg`), flex: 4, like: false },
-                { class:this.item, title: 'Best airlines', creator: 'fbadga', price: 125 , src: require(`@/assets/goods6.jpg`), flex: 4, like: false },
+                { id: 1, class:this.item, title: 'Pre-fab homes', creator: 'leerg', price: 125 , src: require(`@/assets/goods1.jpg`) , flex: 4, like: false},
+                { id: 2, class:this.item, title: 'Favorite road trips', creator: 'klhff', price: 125 , src: require(`@/assets/goods2.jpg`), flex: 4, like: false },
+                { id: 3, class:this.item, title: 'Best airlines', creator: 'degggzs', price: 125 , src: require(`@/assets/goods3.jpg`), flex: 4, like: false },
+                { id: 4, class:this.item, title: 'Pre-fab homes', creator: 'bnggsa', price: 125 , src: require(`@/assets/goods4.jpg`), flex: 4, like: false },
+                { id: 5, class:this.item, title: 'Favorite road trips', creator: 'garr', price: 125 , src: require(`@/assets/goods5.jpg`), flex: 4, like: false },
+                { id: 6, class:this.item, title: 'Best airlines', creator: 'fbadga', price: 125 , src: require(`@/assets/goods6.jpg`), flex: 4, like: false },
+                { id: 7, class:this.item, title: 'Pre-fab homes', creator: 'bnggsa', price: 125 , src: require(`@/assets/goods4.jpg`), flex: 4, like: false },
+                { id: 8, class:this.item, title: 'Favorite road trips', creator: 'garr', price: 125 , src: require(`@/assets/goods5.jpg`), flex: 4, like: false },
+                { id: 9, class:this.item, title: 'Best airlines', creator: 'fbadga', price: 125 , src: require(`@/assets/goods6.jpg`), flex: 4, like: false },
               ],
         }
     },

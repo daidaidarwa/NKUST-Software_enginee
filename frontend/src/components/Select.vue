@@ -39,7 +39,7 @@ export default ({
     },
     data () {
       return {
-        tab: null,
+        tab: "商品分類",
         items: [
           '推薦商品','配件飾品', '居家用品', '衣著提袋', '文具周邊', '創意美食', '其他類別', 
         ],      

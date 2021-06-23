@@ -5,7 +5,7 @@ import Picture from '@/components/Picture'
 // import Store from '@/components/Store'
 import Goods from '@/components/Goods'
 // import Shopping_cart from '@/components/Shopping_cart'
-import Search from '@/components/Search'
+import Car from '@/components/Car'
 import Ad from '@/components/Ad'
 import Select from '@/components/Select'
 
@@ -39,9 +39,9 @@ export default new Router ({
         },
         {
           path: '/search',
-          name: 'search',
+          name: 'car',
           components: {
-            default: Search
+            default: Car
           }
         },
     ]
