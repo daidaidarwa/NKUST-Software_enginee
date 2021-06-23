@@ -1,5 +1,4 @@
 <template>
-  <v-app>
     <div class="d-inline-flex justify-space-around">
       <div class="d-flex">
         <v-img class='mt-9' :src="require('@/assets/logo.png')" width="155" height="75"></v-img>
@@ -79,23 +78,30 @@
         </div>
       </div>
     </div>
-    <router-view/>
-  </v-app>
 </template>
 
 <script>
 import Sign from './Sign.vue'
+// import Picture from './Picture.vue'
+// import Ad from './Ad.vue'
+
 export default ({
     name: "Home",
     components:{
         Sign,
+        // Picture,
+        // Ad
     },
     data () {
       return {
         login_button: false,
         sign: false,
         model: 0,
-        }
+        tab: null,
+        items: [
+          '推薦商品','配件飾品', '居家用品', '衣著提袋', '文具周邊', '創意美食', '其他類別', 
+        ],
+      }    
     },
     computed:{
         login_status(){

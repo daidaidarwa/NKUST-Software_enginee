@@ -31,27 +31,28 @@
     </v-container>
       <v-pagination v-model="page" :length="4" circle></v-pagination>
   </div>
-  <div class="text-center" v-else>
-    <Goods v-bind:item_data="temp" />
-  </div>
+  <router-view name="goods" :item_data="temp" v-else/>
 </div>
 </template>
 
 <script>
-import Goods from './Goods'
+// import Goods from './Goods'
 
 export default ({
     name: "Select",
     props: {
       item:{type: String},
       },
-    components:{
-      Goods,
-    },
+    // components:{
+    //     Goods v-bind:item_data="temp" />
+
+    //   Goods,
+    // },
     data () {
       return {
         page: 1,
         buy_state: false,
+        // item: this.$router.params.value,
         tab: null,
         temp:{},
         cards: [
@@ -83,10 +84,10 @@ export default ({
         },
       check_login(card){
         if(this.$store.state.login_status){
-          if(!card.like){
+          if(card.like){
             alert('已收藏商品')
           }else{
-            alert('取消收藏')
+            alert('已取消收藏')
           }
           card.like = !card.like
         }else{

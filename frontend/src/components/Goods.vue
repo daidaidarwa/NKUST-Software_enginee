@@ -12,7 +12,7 @@
           <v-container fluid>
             <v-row align="center">
                     
-                    <v-card-title>{{item_data.class}}<v-icon>mdi-greater-than</v-icon>{{ item_data.title }}</v-card-title>
+                    <v-card-title>{{ item_data.title }}</v-card-title>
                     
                     <v-card-text>
                         <v-row align="center" class="mx-0" >
@@ -58,6 +58,7 @@
       return {
         size: ["small", 'middle', 'large'],
         buy_stats: false,
+        // item_data: this.$route.params.value
         }
       },
     computed:{
