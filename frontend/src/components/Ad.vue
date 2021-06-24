@@ -25,7 +25,7 @@ export default ({
     
     methods: {
     goods: function(i) {
-        return require(`@/assets/${i}.jpg`);
+        return require(`@/assets/ads${i}.jpg`);
     }
     }
 
