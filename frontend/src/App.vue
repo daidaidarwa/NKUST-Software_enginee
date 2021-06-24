@@ -1,8 +1,7 @@
 <template>
-  <v-app id='app'>
-      <router-view name="home" />
-      <router-view name="select"/>
-  </v-app>
+  <id id='app'>
+      <router-view />
+  </id>
 </template>
   
 

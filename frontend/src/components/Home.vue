@@ -1,4 +1,5 @@
 <template>
+<v-app>
     <div class="d-inline-flex justify-space-around">
       <div class="d-flex">
         <v-img class='mt-9' :src="require('@/assets/logo.png')" width="155" height="75"></v-img>
@@ -71,6 +72,9 @@
                 </v-list-item>
               </v-list>
             </v-menu>
+            <v-btn @click="direct" elevation="5" color="grey">
+              <v-icon>mdi-cart-variant</v-icon>
+          </v-btn>
           </div>
         </div>
         <div class="d-flex ml-16  mt-5" v-if="login_status">
@@ -78,18 +82,20 @@
         </div>
       </div>
     </div>
+    <Select />
+  </v-app>
 </template>
 
 <script>
 import Sign from './Sign.vue'
-// import Picture from './Picture.vue'
+import Select from './Select.vue'
 // import Ad from './Ad.vue'
 
 export default ({
     name: "Home",
     components:{
         Sign,
-        // Picture,
+        Select,
         // Ad
     },
     data () {
@@ -112,7 +118,10 @@ export default ({
         exit(){
            this.login_button = false
            return this.$store.commit("login")
-        },
+       },
+        direct(){
+          return this.$router.push({path:'/cart'}).catch(err=>{err})
+        }
     },
 })
 </script>

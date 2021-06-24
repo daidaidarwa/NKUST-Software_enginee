@@ -5,9 +5,9 @@ import Picture from '@/components/Picture'
 // import Store from '@/components/Store'
 import Goods from '@/components/Goods'
 // import Shopping_cart from '@/components/Shopping_cart'
-import Car from '@/components/Car'
 import Ad from '@/components/Ad'
-import Select from '@/components/Select'
+import CheckBuy from '@/components/CheckBuy'
+import Cart from '@/components/Cart'
 
 Vue.use(Router)
 
@@ -16,8 +16,7 @@ export default new Router ({
         {
           path: '/',
           components: {
-            home: Home,
-            select: Select
+            default: Home,
           },
             children:[
               {
@@ -38,12 +37,21 @@ export default new Router ({
             ]
         },
         {
-          path: '/search',
-          name: 'car',
-          components: {
-            default: Car
-          }
+          path: '/cart',
+          name: 'cart',
+          component: Cart,
+            // checkbuy: CheckBuy
+          children:[
+            {
+              path:'checkbuy',
+              name: 'checkbuy',
+              components: {
+                checkbuy: CheckBuy
+              }
+            }
+          ]
         },
+
     ]
 })
 

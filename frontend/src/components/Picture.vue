@@ -1,6 +1,6 @@
 <template>
 <div id='search'>
-  <div class="text-center" v-if="!buy_status">
+  <div class="text-center" v-if="buy_status">
     <v-container fluid v-model="page">
       <v-row dense >
         <v-col v-for="card in cards" :key="card.id" :cols="card.flex"> 
