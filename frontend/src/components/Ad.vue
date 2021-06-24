@@ -1,7 +1,7 @@
 <template>
   <v-card elevation="24" width="1200" class="mx-auto">
     <v-carousel cycle interval="5000">
-      <v-carousel-item v-for="i in 9" :key="i">
+      <v-carousel-item v-for="i in 6" :key="i">
         <v-sheet height="100%" tile>
           <v-row class="fill-height" align="center" justify="center">
             <img :src="goods(i)" height="100%" width="90%" />
@@ -25,7 +25,7 @@ export default ({
     
     methods: {
     goods: function(i) {
-        return require(`@/assets/goods${i}.jpg`);
+        return require(`@/assets/${i}.jpg`);
     }
     }
 

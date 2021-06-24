@@ -2,7 +2,7 @@
 <v-app id="buycar">
   <div class="d-inline-flex justify-space-around">
       <div class="d-flex">
-          <v-img class='mt-5 ml-15' :src="require('@/assets/logo.png')" width="200" height="100"></v-img>
+          <v-img class='mt-5 ml-15' @click="back" :src="require('@/assets/logo.png')" width="200" height="100"></v-img>
           <v-col class="pt-15" md="5" sm='5'>
           </v-col>
           <v-btn class="mt-15 ml-n5" height="48" width="0" color="#BDBDBD" >
@@ -129,6 +129,9 @@
     methods:{
       direct(){
         return this.$router.push({name:'checkbuy'}).catch(err=>{err})
+      },
+      back(){
+        return this.$router.go(-1)
       }
     }
   }
