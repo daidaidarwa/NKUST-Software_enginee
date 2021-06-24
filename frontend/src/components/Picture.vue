@@ -1,6 +1,6 @@
 <template>
 <div id='search'>
-  <div class="text-center" v-if="buy_status">
+  <div class="text-center" v-if="buy_status" :key="page">
     <v-container fluid v-model="page">
       <v-row dense >
         <v-col v-for="card in cards" :key="card.id" :cols="card.flex"> 
@@ -84,7 +84,7 @@ export default ({
         },
       check_login(card){
         if(this.$store.state.login_status){
-          if(card.like){
+          if(!card.like){
             alert('已收藏商品')
           }else{
             alert('已取消收藏')
