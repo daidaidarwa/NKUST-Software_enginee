@@ -65,9 +65,6 @@
                   <button text dark><v-icon left>mdi-clipboard-list-outline</v-icon>訂單查詢</button>
                 </v-list-item>
                 <v-list-item link>
-                  <button text dark><v-icon left>mdi-cart-outline</v-icon>購物車</button>
-                </v-list-item>
-                <v-list-item link>
                   <button  @click="exit"><v-icon left>mdi-logout</v-icon>登出</button>
                 </v-list-item>
               </v-list>
