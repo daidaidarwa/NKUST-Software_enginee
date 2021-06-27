@@ -26,12 +26,10 @@ export default new Router ({
                   picture: Picture
                 },
               },
-              
               {
-                path: '/goods',
-                name: 'goods',
+                path: '/goods/:id',
                 components: {
-                  default: Goods
+                  goods: Goods
                 }
               },      
             ]

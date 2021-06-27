@@ -31,23 +31,23 @@
     </v-container>
       <v-pagination v-model="page" :length="4" circle></v-pagination>
   </div>
-  <Goods :item_data="temp"  v-else/>
+  <router-view v-else/>
 </div>
 </template>
 
 <script>
-import Goods from './Goods'
+// import Goods from './Goods'
 
 export default ({
     name: "Select",
-    props: {
-      item:{type: String},
-      },
-    components:{
-        // Goods v-bind:item_data="temp" />
+    // props: {
+    //   item:{type: String},
+    //   },
+    // components:{
+    //     // Goods v-bind:item_data="temp" />
 
-      Goods,
-    },
+    //   Goods,
+    // },
     data () {
       return {
         page: 1,
@@ -80,7 +80,13 @@ export default ({
       buy(card){
            this.buy_state = false
            this.temp= card
-           return this.$store.commit("buy")
+           this.$store.commit('buy')
+           return this.$router.push({
+             path:'/goods',
+             params:{
+               id: card
+             }
+           })
         },
       check_login(card){
         if(this.$store.state.login_status){

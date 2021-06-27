@@ -4,7 +4,7 @@
       <v-carousel-item v-for="i in 6" :key="i">
         <v-sheet height="100%" tile>
           <v-row class="fill-height" align="center" justify="center">
-            <img :src="goods(i)" height="100%" width="90%" />
+            <v-img :src="goods(i)" height="500" width="550" />
           </v-row>
         </v-sheet>
       </v-carousel-item>
@@ -25,7 +25,7 @@ export default ({
     
     methods: {
     goods: function(i) {
-        return require(`@/assets/ads${i}.jpg`);
+        return require(`@/assets/${i}.jpg`);
     }
     }
 

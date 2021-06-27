@@ -1,5 +1,6 @@
 <template>
   <v-container>
+  {{show}}
     <v-tabs-items v-model="tab">
     <v-row no-gutters align="center">
       <v-col v-model="item_data" cols="12" sm="6" md="8">
@@ -51,14 +52,12 @@
 <script>
   export default ({
     name : 'Good',
-     props:{
-       item_data: {type: Object},
-    },
     data () {
       return {
         size: ["small", 'middle', 'large'],
         buy_stats: false,
         tab: null,
+        item_data: this.$route.params.id
         // item_data: {},
         }
       },
@@ -83,6 +82,10 @@
            this.buy_button = false
            return this.$store.commit("buy")
         },
+      show(){
+        console.log(this.$route.params.value)
+    }
     },
+    
 })
 </script>

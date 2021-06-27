@@ -27,20 +27,17 @@
                   <v-container>
                     <v-row class="d-flex justify-center">
                       <v-col  cols="12" sm="6" md="4">
-                        <v-text-field  label="Yume Design帳號" required></v-text-field>
+                        <v-text-field v-model="login_data.account.username" label="Yume Design帳號" required></v-text-field>
                       </v-col>
                     </v-row>
                     <v-row class="d-flex justify-center">
                       <v-col cols="12" sm="6" md="4">
-                        <v-text-field type="password" label="密碼"  required></v-text-field>
+                        <v-text-field v-model="login_data.account.password" type="password" label="密碼"  required></v-text-field>
                       </v-col>
                     </v-row>
                     <v-row class="d-flex justify-center">
-                      <v-btn  color="blue darken-1" text @click="exit">
+                      <v-btn  color="blue darken-1" text @click="login">
                         登入
-                      </v-btn>
-                      <v-btn color="blue darken-1" text @click="exit">
-                        忘記密碼
                       </v-btn>
                     </v-row>
                   </v-container>
@@ -65,10 +62,7 @@
                   <button text dark><v-icon left>mdi-clipboard-list-outline</v-icon>訂單查詢</button>
                 </v-list-item>
                 <v-list-item link>
-                  <button text dark><v-icon left>mdi-cart-outline</v-icon>購物車</button>
-                </v-list-item>
-                <v-list-item link>
-                  <button  @click="exit"><v-icon left>mdi-logout</v-icon>登出</button>
+                  <button  @click="logout"><v-icon left>mdi-logout</v-icon>登出</button>
                 </v-list-item>
               </v-list>
             </v-menu>
@@ -100,28 +94,57 @@ export default ({
     },
     data () {
       return {
+        info: null,
         login_button: false,
         sign: false,
         model: 0,
         tab: null,
+        login_data:{
+          type: "general",
+          account:{
+            username: null,
+            password: null
+          }
+        },
         items: [
           '推薦商品','配件飾品', '居家用品', '衣著提袋', '文具周邊', '創意美食', '其他類別', 
         ],
+        
       }    
     },
     computed:{
         login_status(){
-            return !this.$store.state.login_status
+          return !this.$store.state.auth.status
         }
     },
     methods: {
-        exit(){
-           this.login_button = false
-           return this.$store.commit("login")
-       },
-        direct(){
-          return this.$router.push({path:'/cart'}).catch(err=>{err})
-        }
+      exit(){
+        this.login_button = false
+      },
+      direct(){
+        return this.$router.push({path:'/cart'}).catch(err=>{err})
+      },
+      login(){
+        this.$axios.post('http://yumedesign.net:8000/api/v1/auth/token', this.login_data)
+        .then(
+          response => {
+            console.log(response.data)
+            this.$store.commit('login', response.data)
+            alert("登入成功")
+          }
+        )
+        .catch(error => {
+          alert("登入失敗")
+          console.log('Error:', error)
+          }
+        ) 
+
+        
+      }
+      ,
+      logout(){
+        this.$store.commit('logout')
+      }
     },
 })
 </script>

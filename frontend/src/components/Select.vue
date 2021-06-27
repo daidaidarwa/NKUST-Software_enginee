@@ -15,7 +15,7 @@
             <v-card v-else elevation="24" width="1200" class="mx-auto">
               <router-view name="picture" :item="item"/>
             </v-card>
-          </v-card>
+          </v-card>                                                                                                                                                                                                                                                                                                                                                                                   
         </v-tab-item>
       </v-tabs-items>
     </v-card>
