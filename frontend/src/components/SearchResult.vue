@@ -1,19 +1,16 @@
 <template>
 <div id='search'>
-{{show()}}
   <div class="text-center" v-if="buy_status" :key="page">
     <v-container fluid v-model="page">
       <v-row dense >
-        <v-col v-for="i in goods" :key="goods.indexOf(i)" :cols="4">
-            <v-card>
+        <v-col v-for="i in goods" :key="goods.indexOf(i)" :cols="4"> 
+          <v-card>
               <v-card link>
-                <router-link :to="{name: 'goods', params:{id: i.id}}">
-                  <v-img :src="i.images[0]" class="white--text align-end" gradient="to bottom, rgba(0,0,0,0.1), rgba(0,0,0,0.1)" height="350px">
-                    <v-card-actions >
-                      <v-spacer></v-spacer>
-                    </v-card-actions>          
-                  </v-img>
-                </router-link>
+                <v-img :src="i.images[0]" @click="buy(i)" class="white--text align-end" gradient="to bottom, rgba(0,0,0,0.1), rgba(0,0,0,0.1)" height="350px">
+                  <v-card-actions >
+                    <v-spacer></v-spacer>
+                  </v-card-actions>          
+                </v-img>
                 <div class="d-flex flex-row-reverse">
                   <v-btn class="mt-n15" icon @click="check_login(i)">
                     <v-icon v-if="!i.like">mdi-heart-plus-outline</v-icon>
@@ -34,6 +31,7 @@
     </v-container>
       <v-pagination v-model="page" :length="4" circle></v-pagination>
   </div>
+  <router-view v-else/>
 </div>
 </template>
 
@@ -43,7 +41,7 @@
 export default ({
     name: "Select",
     props: {
-      item:{type: String},
+      search_keyword:{type: String},
       },
     // components:{
     //     // Goods v-bind:item_data="temp" />
@@ -53,34 +51,43 @@ export default ({
     data () {
       return {
         page: 1,
+        target: null,
         buy_state: false,
+        goods: [],
         // item: this.$router.params.value,
         tab: null,
-        class: null,
         temp:{},
-        goods: null
         }
     },
     computed:{
         buy_status(){
             return !this.$store.state.buy_status
         }
-    }, 
-    mounted() {
-      this.class = {
-        category: this.item
-      }
-      this.$axios.post('http://yumedesign.net:8000/api/v1/goods', this.class)
-      .then(
-        response =>{
-          this.goods = response.data.data
-          console.log(this.goods)
-        }
-      )
     },
+    mounted() {
+        console.log(this.search_keyword)
+        this.target = { keyword: this.search_keyword}
+        this.$axios.post('http://yumedesign.net:8000/api/v1/search', this.target)
+        .then(
+            response =>{
+                this.goods = response.data.data
+                console.log(this.goods)
+            })
+    }, 
     methods: {
+      buy(card){
+           this.buy_state = false
+           this.temp= card
+           this.$store.commit('buy')
+           return this.$router.push({
+             path:'/goods',
+             params:{
+               id: card
+             }
+           })
+        },
       check_login(card){
-        if(this.$store.state.auth.status){
+        if(this.$store.state.login_status){
           if(!card.like){
             alert('已收藏商品')
           }else{
@@ -90,10 +97,7 @@ export default ({
         }else{
           alert('尚未登入')
       }
-    },
-    show(){
-      console.log(this.class)
     }
-  }
+    }
 })
 </script>

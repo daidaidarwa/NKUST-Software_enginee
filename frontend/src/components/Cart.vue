@@ -37,37 +37,42 @@
             <v-col class="pt-15" md="0" sm='1' />
           </v-subheader>
         <v-list-item-group v-model="settings" multiple active-class="">
-          <v-list-item v-for="item in items" :key="item.title">
+          <v-list-item v-for="i in carts" :key="carts.indexOf(i)">
             <template v-slot:default="{ active }">
               <v-list-item-action>
-                <v-checkbox :input-value="active" value />
+                <v-checkbox :input-value="active" value></v-checkbox>
+                <v-btn icon @click="del(i, i.id)">
+                  <v-icon class="ml-3">
+                    mdi-close-box
+                  </v-icon>
+                </v-btn>
               </v-list-item-action>
               <v-list-item-avatar tile size="90">
-                <v-img :src="item.imgUrl" />
+                <v-img :src="i.goods.images[0]" />
               </v-list-item-avatar>
               <v-list-item-content>
                 <v-container>
                   <v-row no-gutters>
                     <v-col cols="2" sm="5">
                       <v-card class="pa-2" tile>
-                        <v-list-item-title v-text="item.itemName"></v-list-item-title>
+                        <v-list-item-title v-text="i.goods.title"></v-list-item-title>
                       </v-card>
                     </v-col>
                     <v-col cols="4" sm="3">
                       <v-card class="pa-2" tile>
-                        &nbsp;{{item.price}}
+                        &nbsp;{{i.goods.price}}
                       </v-card>
                     </v-col>
                     <v-col cols="4" sm="2">
                       <v-card class="pa-2" tile>
-                        {{item.count}}
+                        {{i.quantity}}
                       </v-card>
                     </v-col>
                     <v-col cols="4" sm="2">
                       <v-card class="pa-2" tile>
-                        &nbsp;&nbsp;&nbsp;<span>$</span>{{item.price * item.count}}
+                        &nbsp;&nbsp;&nbsp;<span>$</span>{{i.goods.price * i.quantity}}
                       </v-card>
-                    </v-col> 
+                    </v-col>
                   </v-row>
                 </v-container>
               </v-list-item-content>
@@ -94,37 +99,18 @@
       return {
         settings: [],
         check: false,
-        items: [
-           {
-            id:'1',
-            itemName:'聖誕特調 | 乾燥花束',
-            imgUrl: require('@/assets/goods1.jpg'),
-            price:'500',
-            count:'1'
-          },
-          {
-            id:'2',
-            itemName:'黑白質感 | 乾燥花束',
-            imgUrl: require('@/assets/goods2.jpg'),
-            price:'790',
-            count:'1'
-          },
-          {
-            id:'3',
-            itemName:'薰衣草藍調 | 乾燥花束',
-            imgUrl: require('@/assets/goods3.jpg'),
-            price:'120',
-            count:'1'
-          },
-          {
-            id:'4',
-            itemName:'聖誕特調 | 乾燥花束',
-            imgUrl: require('@/assets/goods4.jpg'),
-            price:'230',
-            count:'1'
-          },
-        ],
+        carts: []
       }
+    },
+    mounted() {
+      this.$axios.get('http://yumedesign.net:8000/api/v1/cart', {headers: {'Authorization': `Bearer ${this.$store.state.auth.access}`}} )
+      .then(
+        response =>{
+          this.carts = response.data.data
+          console.log(this.carts)
+        }
+      )
+      .catch(error => console.log(error))
     },
     methods:{
       direct(){
@@ -132,6 +118,17 @@
       },
       back(){
         return this.$router.go(-1)
+      },
+      del(i, id){
+        this.$axios.delete('http://yumedesign.net:8000/api/v1/cart', {headers: {'Authorization': `Bearer ${this.$store.state.auth.access}`}, data:{cart_id: id}})
+        .then(
+          response =>{
+            alert('刪除成功')
+            this.carts.splice(i, 1)
+            console.log(response)
+          }
+        )
+        .catch(error => console.log(error))
       }
     }
   }

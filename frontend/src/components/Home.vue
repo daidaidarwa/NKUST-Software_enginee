@@ -4,11 +4,13 @@
       <div class="d-flex">
         <v-img class='mt-9' :src="require('@/assets/logo.png')" width="155" height="75"></v-img>
           <v-col class="pt-15" md="10" sm='5'>
-            <v-text-field label="Search" solo></v-text-field>
+            <v-text-field v-model="search_keyword" label="Search" solo></v-text-field>
           </v-col>
-          <v-btn class="mt-15 ml-n5" height="48" width="0" color="#BDBDBD" >
-            <v-icon large> mdi-magnify</v-icon>
-          </v-btn>
+          <router-link :to="{name: 'search', params:{keywords: search_keyword}}">
+            <v-btn @click="search" class="mt-15 ml-n5" height="48" width="0" color="#BDBDBD" >
+              <v-icon large> mdi-magnify</v-icon>
+            </v-btn>
+          </router-link>
       </div>
       <div class="d-flex align-center">
         <div class="d-flex mt-5 ">
@@ -49,7 +51,7 @@
             <v-menu offset-y>
               <template v-slot:activator="{ on, attrs }">
                 <v-avatar dark v-bind="attrs" v-on="on">
-                  <img src="https://cdn.vuetifyjs.com/images/john.jpg">
+                  <img :src="avatar">
                 </v-avatar>
               </template>
               <v-list dense rounded>
@@ -66,7 +68,7 @@
                 </v-list-item>
               </v-list>
             </v-menu>
-            <v-btn @click="direct" elevation="5" color="grey">
+            <v-btn class="ml-8" @click="direct" elevation="5" color="grey">
               <v-icon>mdi-cart-variant</v-icon>
           </v-btn>
           </div>
@@ -76,13 +78,15 @@
         </div>
       </div>
     </div>
-    <Select />
+    <Select v-if="!search_status"/>
+    <router-view name="search" :search_keyword="search_keyword" v-else/>
   </v-app>
 </template>
 
 <script>
 import Sign from './Sign.vue'
 import Select from './Select.vue'
+// import Search from './SearchResult.vue'
 // import Ad from './Ad.vue'
 
 export default ({
@@ -90,15 +94,19 @@ export default ({
     components:{
         Sign,
         Select,
+        // Search
         // Ad
     },
     data () {
       return {
         info: null,
         login_button: false,
+        search_status:false,
+        search_keyword: null,
         sign: false,
         model: 0,
         tab: null,
+        avatar: null,
         login_data:{
           type: "general",
           account:{
@@ -118,9 +126,6 @@ export default ({
         }
     },
     methods: {
-      exit(){
-        this.login_button = false
-      },
       direct(){
         return this.$router.push({path:'/cart'}).catch(err=>{err})
       },
@@ -131,19 +136,27 @@ export default ({
             console.log(response.data)
             this.$store.commit('login', response.data)
             alert("登入成功")
+            this.$axios.get('http://yumedesign.net:8000/api/v1/me', {headers: {'Authorization': `Bearer ${this.$store.state.auth.access}`}}            )
+            .then(
+              response => {
+                this.avatar = response.data.avatar
+                console.log(response.data)
+              }
+            )
           }
         )
         .catch(error => {
           alert("登入失敗")
           console.log('Error:', error)
           }
-        ) 
-
-        
+        )         
       }
       ,
       logout(){
         this.$store.commit('logout')
+      },
+      search(){
+        this.search_status = !this.search_status 
       }
     },
 })

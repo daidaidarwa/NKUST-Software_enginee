@@ -4,7 +4,7 @@ import Home from '@/components/Home'
 import Picture from '@/components/Picture'
 // import Store from '@/components/Store'
 import Goods from '@/components/Goods'
-// import Shopping_cart from '@/components/Shopping_cart'
+import Search from '@/components/SearchResult'
 import Ad from '@/components/Ad'
 import CheckBuy from '@/components/CheckBuy'
 import Cart from '@/components/Cart'
@@ -18,7 +18,7 @@ export default new Router ({
           components: {
             default: Home,
           },
-            children:[
+          children:[
               {
                 path:'',
                 components:{
@@ -28,10 +28,18 @@ export default new Router ({
               },
               {
                 path: '/goods/:id',
+                name: 'goods',
                 components: {
                   goods: Goods
                 }
               },
+              {
+                path: '/search',
+                name: 'search',
+                components: {
+                  search: Search
+                }
+              }
             ]
         },
         {

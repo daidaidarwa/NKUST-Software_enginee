@@ -13,7 +13,7 @@
               <router-view name="ad" />
             </v-card> 
             <v-card v-else elevation="24" width="1200" class="mx-auto">
-              <router-view name="picture" />
+              <router-view name="picture" :item="item"/>
               <router-view name="goods" />
             </v-card>
           </v-card>                                                                                                                                                                                                                                                                                                                                                                                   
@@ -42,7 +42,7 @@ export default ({
       return {
         tab: "商品分類",
         items: [
-          '推薦商品','配件飾品', '居家用品', '衣著提袋', '文具周邊', '創意美食', '其他類別', 
+          '推薦商品','配件飾品', '居家用品', '衣著提袋', '文具周邊', '創意美食'
         ],      
         }
     }
