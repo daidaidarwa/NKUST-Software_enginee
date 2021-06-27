@@ -41,16 +41,11 @@ const store = new Vuex.Store({
       state.auth.access = res.access
       state.auth.refresh = res.refresh
     },
-
     logout(state){
       state.auth.status = false
       state.auth.access = null
       state.auth.refresh = null
     },
-
-    buy(state) {
-      state.buy_status = !state.buy_status
-    }
   }
 })
 

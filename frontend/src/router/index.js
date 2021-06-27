@@ -28,11 +28,10 @@ export default new Router ({
               },
               {
                 path: '/goods/:id',
-                name: 'goods',
                 components: {
                   goods: Goods
                 }
-              },      
+              },
             ]
         },
         {

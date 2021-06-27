@@ -3,14 +3,16 @@
   <div class="text-center" v-if="buy_status" :key="page">
     <v-container fluid v-model="page">
       <v-row dense >
-        <v-col v-for="card in cards" :key="card.id" :cols="card.flex"> 
-          <v-card>
+        <v-col v-for="card in cards" :key="card.id" :cols="card.flex">
+            <v-card>
               <v-card link>
-                <v-img :src="card.src" @click="buy(card)" class="white--text align-end" gradient="to bottom, rgba(0,0,0,0.1), rgba(0,0,0,0.1)" height="350px">
-                  <v-card-actions >
-                    <v-spacer></v-spacer>
-                  </v-card-actions>          
-                </v-img>
+                <router-link :to="`/goods/${card.id}`">
+                  <v-img :src="card.src" class="white--text align-end" gradient="to bottom, rgba(0,0,0,0.1), rgba(0,0,0,0.1)" height="350px">
+                    <v-card-actions >
+                      <v-spacer></v-spacer>
+                    </v-card-actions>          
+                  </v-img>
+                </router-link>
                 <div class="d-flex flex-row-reverse">
                   <v-btn class="mt-n15" icon @click="check_login(card)">
                     <v-icon v-if="!card.like">mdi-heart-plus-outline</v-icon>
@@ -18,7 +20,9 @@
                   </v-btn>
                 </div>
               </v-card>
-            <v-card-title> {{card.title}} </v-card-title>
+            <router-link :to="`/goods/${card.id}`">
+              <v-card-title> {{card.title}} </v-card-title>
+            </router-link>
             <v-card-text>
               <v-row align="center" class="mx-0"></v-row>
               <div class="d-flex justify-space-between my-4 text-h4">
@@ -31,7 +35,6 @@
     </v-container>
       <v-pagination v-model="page" :length="4" circle></v-pagination>
   </div>
-  <router-view v-else/>
 </div>
 </template>
 
@@ -77,17 +80,6 @@ export default ({
       goods: function(i) {
         return require(`@/assets/goods${i}.jpg`);
       },
-      buy(card){
-           this.buy_state = false
-           this.temp= card
-           this.$store.commit('buy')
-           return this.$router.push({
-             path:'/goods',
-             params:{
-               id: card
-             }
-           })
-        },
       check_login(card){
         if(this.$store.state.login_status){
           if(!card.like){

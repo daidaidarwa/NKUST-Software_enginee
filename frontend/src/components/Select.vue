@@ -13,7 +13,8 @@
               <router-view name="ad" />
             </v-card> 
             <v-card v-else elevation="24" width="1200" class="mx-auto">
-              <router-view name="picture" :item="item"/>
+              <router-view name="picture" />
+              <router-view name="goods" />
             </v-card>
           </v-card>                                                                                                                                                                                                                                                                                                                                                                                   
         </v-tab-item>
